@@ -2,20 +2,16 @@ import { SecretVaultWrapper } from 'nillion-sv-wrappers';
 import { v4 as uuidv4 } from 'uuid';
 import { orgConfig } from './nillionOrgConfig.js';
 
-// Web3 Experience Survey Collection Config
-// Check out the full schema in schema.json
-const collectionConfig = {
-  schemaId: '53f9e1de-e0a3-46ab-86c6-3fd380ad8877',
-  encryptedFields: ['years_in_web3'],
-};
+// Check out the Web3 Experience Survey schema in schema.json
+const SCHEMA_ID = '1e630894-fb8a-4a08-823f-33294c9ad17e';
 
 // Web3 Experience Survey Data to add to the collection
-// Note that the years_in_web3 field will be encrypted ahead of time
-// Each node will have a different encrypted share of the years_in_web3 field
+// $allot signals that the years_in_web3 field will be encrypted
+// Each node will have a different encrypted $share of the years_in_web3 field
 const data = [
   {
     _id: uuidv4(),
-    years_in_web3: 5,
+    years_in_web3: { $allot: 5 },
     responses: [
       { rating: 5, question_number: 1 },
       { rating: 3, question_number: 2 },
@@ -23,7 +19,7 @@ const data = [
   },
   {
     _id: uuidv4(),
-    years_in_web3: 1,
+    years_in_web3: { $allot: 1 },
     responses: [
       { rating: 2, question_number: 1 },
       { rating: 4, question_number: 2 },
@@ -37,15 +33,12 @@ async function main() {
     const collection = new SecretVaultWrapper(
       orgConfig.nodes,
       orgConfig.orgCredentials,
-      collectionConfig.schemaId
+      SCHEMA_ID
     );
     await collection.init();
 
     // Write collection data to nodes encrypting the specified fields ahead of time
-    const dataWritten = await collection.writeToNodes(
-      data,
-      collectionConfig.encryptedFields
-    );
+    const dataWritten = await collection.writeToNodes(data);
 
     // Get the ids of the SecretVault records created
     const newIds = [
@@ -54,13 +47,13 @@ async function main() {
     console.log('uploaded record ids:', newIds);
 
     // Read all collection data from the nodes, decrypting the specified fields
-    const decryptedCollectionData = await collection.readFromNodes(
-      {},
-      collectionConfig.encryptedFields
-    );
+    const decryptedCollectionData = await collection.readFromNodes({});
 
     // Log first 5 records
-    console.log('Most recent records', decryptedCollectionData.slice(0, 5));
+    console.log(
+      'Most recent records',
+      decryptedCollectionData.slice(0, data.length)
+    );
   } catch (error) {
     console.error('❌ SecretVaultWrapper error:', error.message);
     process.exit(1);

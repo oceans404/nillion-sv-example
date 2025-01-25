@@ -11,7 +11,13 @@
         "coerce": true
       },
       "years_in_web3": {
-        "type": "string"
+        "type": "object",
+        "properties": {
+          "$share": {
+            "type": "string"
+          }
+        },
+        "required": ["$share"]
       },
       "responses": {
         "type": "array",

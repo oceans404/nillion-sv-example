@@ -18,11 +18,16 @@ node index.js
 
 ## Project Structure
 
+### postSchema.js: File to create a new structured data collection with a schema: schema.json
+
+- Create a named collection
+- Upload the schema collection for use by your organization
+- Returns the schema id of the created collection
+
 ### index.js: Main example file showing how to:
 
-- Set collectionConfig (schema id and encrypted fields)
 - Initialize SecretVaultWrapper
-- Write data with encrypted fields
+- Write data with encrypted fields to an existing schema collection by schema id
 - Read and decrypt data from nodes
 
 ### nillionOrgConfig.js: Configuration file containing:
@@ -33,6 +38,18 @@ node index.js
 
 ### schema.json: JSON Schema for the Web3 survey collection
 
-- Note this json file isn't used directly; it's included to show the schema
 - The reference to this schema by id is in the collectionConfig in the index.js file
-- The years_in_web3 field type is a string rather than a number so that the schema expects this field to be encrypted shares (string)
+- The years_in_web3 field will be encrypted ahead of time, and its shares will be stored in SecretVault
+- years_in_web3 is an object that has a `$share` property for uploading one share of the encrypted value to each node
+
+```
+"years_in_web3": {
+  "type": "object",
+  "properties": {
+    "$share": {
+      "type": "string"
+    }
+  },
+  "required": ["$share"]
+},
+```
