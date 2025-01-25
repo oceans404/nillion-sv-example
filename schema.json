@@ -10,6 +10,15 @@
         "format": "uuid",
         "coerce": true
       },
+      "name": {
+        "type": "object",
+        "properties": {
+          "$share": {
+            "type": "string"
+          }
+        },
+        "required": ["$share"]
+      },
       "years_in_web3": {
         "type": "object",
         "properties": {
@@ -39,6 +48,6 @@
         "minItems": 1
       }
     },
-    "required": ["_id", "years_in_web3", "responses"]
+    "required": ["_id", "name", "years_in_web3", "responses"]
   }
 }

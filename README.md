@@ -39,7 +39,7 @@ node index.js
 ### schema.json: JSON Schema for the Web3 survey collection
 
 - The reference to this schema by id is in the collectionConfig in the index.js file
-- The years_in_web3 field will be encrypted ahead of time, and its shares will be stored in SecretVault
+- The name and years_in_web3 fields will be encrypted ahead of time, and their shares will be stored in SecretVault
 - years_in_web3 is an object that has a `$share` property for uploading one share of the encrypted value to each node
 
 ```
