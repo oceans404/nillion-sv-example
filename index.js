@@ -1,5 +1,4 @@
 import { SecretVaultWrapper } from 'nillion-sv-wrappers';
-import { v4 as uuidv4 } from 'uuid';
 import { orgConfig } from './nillionOrgConfig.js';
 
 // Use postSchema.js to create a new collection schema
@@ -11,7 +10,6 @@ const SCHEMA_ID = '🎯UPDATE_ME_WITH_YOUR_SCHEMA_ID';
 // Each node will have a different encrypted $share of encrypted field
 const data = [
   {
-    _id: uuidv4(),
     name: { $allot: 'Vitalik Buterin' }, // will be encrypted to a $share
     years_in_web3: { $allot: 8 }, // will be encrypted to a $share
     responses: [
@@ -20,7 +18,6 @@ const data = [
     ],
   },
   {
-    _id: uuidv4(),
     name: { $allot: 'Satoshi Nakamoto' }, // will be encrypted to a $share
     years_in_web3: { $allot: 14 }, // will be encrypted to a $share
     responses: [
