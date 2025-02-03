@@ -1,28 +1,40 @@
 import { SecretVaultWrapper } from 'nillion-sv-wrappers';
 import { orgConfig } from './nillionOrgConfig.js';
+import { v4 as uuidv4 } from 'uuid';
 
 // Use postSchema.js to create a new collection schema
 // Update SCHEMA_ID to the schema id of your new collection
-const SCHEMA_ID = '🎯UPDATE_ME_WITH_YOUR_SCHEMA_ID';
+const SCHEMA_ID = '840ba443-c667-4662-a118-fb0a51c546b9';
 
-// Web3 Experience Survey Data to add to the collection
+// shelter data
 // $allot signals that the name years_in_web3 field will be encrypted
 // Each node will have a different encrypted $share of encrypted field
 const data = [
   {
-    name: { $allot: 'Vitalik Buterin' }, // will be encrypted to a $share
-    years_in_web3: { $allot: 8 }, // will be encrypted to a $share
-    responses: [
-      { rating: 5, question_number: 1 },
-      { rating: 3, question_number: 2 },
-    ],
-  },
-  {
-    name: { $allot: 'Satoshi Nakamoto' }, // will be encrypted to a $share
-    years_in_web3: { $allot: 14 }, // will be encrypted to a $share
-    responses: [
-      { rating: 2, question_number: 1 },
-      { rating: 5, question_number: 2 },
+    shelter_info: {
+      name: { $allot: 'Happy Paws Warsaw Shelter' },
+      location: { $allot: 'ul. Zwierzeca 12, 00-001 Warsaw' },
+      operational_costs: { $allot: 180000 },
+    },
+    metrics: {
+      current_animals: 45,
+      monthly_intake: 12,
+      neutering_count: 30,
+      adoption_rate: 0.75,
+    },
+    animals: [
+      {
+        id: uuidv4(),
+        species: 'cat',
+        status: 'available',
+        intake_date: '2024-02-03T12:00:00Z',
+      },
+      {
+        id: uuidv4(),
+        species: 'dog',
+        status: 'adopted',
+        intake_date: '2024-01-15T14:30:00Z',
+      },
     ],
   },
 ];
@@ -36,6 +48,7 @@ async function main() {
       SCHEMA_ID
     );
     await collection.init();
+    console.log('✅ Collection initialized', collection);
 
     // Write collection data to nodes encrypting the specified fields ahead of time
     const dataWritten = await collection.writeToNodes(data);

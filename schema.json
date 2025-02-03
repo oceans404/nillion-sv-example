@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Web3 Experience Survey",
+  "title": "Shelter System",
   "type": "array",
   "items": {
     "type": "object",
@@ -10,44 +10,92 @@
         "format": "uuid",
         "coerce": true
       },
-      "name": {
+      "shelter_info": {
         "type": "object",
         "properties": {
-          "$share": {
-            "type": "string"
+          "name": {
+            "type": "object",
+            "properties": {
+              "$share": {
+                "type": "string"
+              }
+            },
+            "required": ["$share"]
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "$share": {
+                "type": "string"
+              }
+            },
+            "required": ["$share"]
+          },
+          "operational_costs": {
+            "type": "object",
+            "properties": {
+              "$share": {
+                "type": "string"
+              }
+            },
+            "required": ["$share"]
           }
         },
-        "required": ["$share"]
+        "required": ["name", "location", "operational_costs"]
       },
-      "years_in_web3": {
+      "metrics": {
         "type": "object",
         "properties": {
-          "$share": {
-            "type": "string"
+          "current_animals": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "monthly_intake": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "neutering_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "adoption_rate": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
           }
         },
-        "required": ["$share"]
+        "required": [
+          "current_animals",
+          "monthly_intake",
+          "neutering_count",
+          "adoption_rate"
+        ]
       },
-      "responses": {
+      "animals": {
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "rating": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 5
+            "id": {
+              "type": "string",
+              "format": "uuid"
             },
-            "question_number": {
-              "type": "integer",
-              "minimum": 1
+            "species": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["available", "adopted"]
+            },
+            "intake_date": {
+              "type": "string",
+              "format": "date-time"
             }
           },
-          "required": ["rating", "question_number"]
-        },
-        "minItems": 1
+          "required": ["id", "species", "status", "intake_date"]
+        }
       }
     },
-    "required": ["_id", "name", "years_in_web3", "responses"]
+    "required": ["_id", "shelter_info", "metrics", "animals"]
   }
 }
