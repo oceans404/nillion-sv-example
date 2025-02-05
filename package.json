@@ -9,7 +9,7 @@
   "author": "Steph",
   "license": "MIT",
   "dependencies": {
-    "nillion-sv-wrappers": "^1.0.6",
+    "nillion-sv-wrappers": "^1.0.7",
     "uuid": "^11.0.5"
   },
   "type": "module"
