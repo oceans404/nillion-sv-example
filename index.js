@@ -3,26 +3,28 @@ import { orgConfig } from './nillionOrgConfig.js';
 
 // Use postSchema.js to create a new collection schema
 // Update SCHEMA_ID to the schema id of your new collection
-const SCHEMA_ID = '🎯UPDATE_ME_WITH_YOUR_SCHEMA_ID';
+const SCHEMA_ID = '0656c3df-4119-4e2b-81d3-ef4060ddcb13';
 
-// Web3 Experience Survey Data to add to the collection
-// $allot signals that the name years_in_web3 field will be encrypted
-// Each node will have a different encrypted $share of encrypted field
 const data = [
   {
-    name: { $allot: 'Vitalik Buterin' }, // will be encrypted to a $share
-    years_in_web3: { $allot: 8 }, // will be encrypted to a $share
-    responses: [
-      { rating: 5, question_number: 1 },
-      { rating: 3, question_number: 2 },
+    parties: [
+      '0x1111117890123456789012345678901234567890',
+      '0x2222227890123456789012345678901234567890',
+      '0x3333337890123456789012345678901234567890',
     ],
   },
   {
-    name: { $allot: 'Satoshi Nakamoto' }, // will be encrypted to a $share
-    years_in_web3: { $allot: 14 }, // will be encrypted to a $share
-    responses: [
-      { rating: 2, question_number: 1 },
-      { rating: 5, question_number: 2 },
+    parties: [
+      '0x4444447890123456789012345678901234567890',
+      '0x5555557890123456789012345678901234567890',
+      '0x6666667890123456789012345678901234567890',
+    ],
+  },
+  {
+    parties: [
+      '0x7777777890123456789012345678901234567890',
+      '0x8888888890123456789012345678901234567890',
+      '0x9999999890123456789012345678901234567890',
     ],
   },
 ];
